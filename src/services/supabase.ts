@@ -1,3 +1,6 @@
+// Fix: Add Vite client types to resolve import.meta.env error.
+/// <reference types="vite/client" />
+
 import { createClient } from '@supabase/supabase-js';
 
 // Securely get the Supabase URL and Key from environment variables.
