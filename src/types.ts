@@ -1,5 +1,3 @@
-// Fix: Removed reference to vite/client which was causing an error.
-
 // The core data structures for the application.
 
 export type UserRole = 'super_admin' | 'admin' | 'key_user' | 'field_service_employee';

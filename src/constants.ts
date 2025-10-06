@@ -1,5 +1,4 @@
-// Fix: Added missing constants file with translations and VAT rates.
-import { UserRole } from './types';
+import { UserRole } from '@/types';
 
 export const GERMAN_VAT_RATES = [19, 7, 0];
 

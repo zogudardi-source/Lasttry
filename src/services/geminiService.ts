@@ -2,7 +2,7 @@
 /// <reference types="vite/client" />
 
 import { GoogleGenAI } from "@google/genai";
-import { Message } from '../types';
+import { Message } from '@/types';
 
 // Securely get the Gemini API Key from environment variables.
 // Vite requires environment variables exposed to the client to be prefixed with `VITE_`.
