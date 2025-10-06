@@ -1,12 +1,15 @@
 import React, { useState, FormEvent } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '@/services/supabase';
 import { useAuth } from '@/hooks/useAuth';
+import { useLanguage } from '@/hooks/useLanguage';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
+import { CubeIcon } from '@heroicons/react/24/solid';
 
 const LoginPage: React.FC = () => {
   const { session } = useAuth();
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -46,38 +49,83 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-slate-900">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-slate-800">
-        <div>
-          <h1 className="text-3xl font-bold text-center text-primary-600 dark:text-primary-400">ZOGU Solutions</h1>
-          <h2 className="mt-2 text-xl font-semibold text-center text-slate-800 dark:text-slate-100">Sign in to your account</h2>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-          <Input
-            id="email"
-            label="Email address"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            id="password"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {error && <p className="text-sm text-red-500">{error}</p>}
-          <div>
-            <Button type="submit" className="w-full" isLoading={loading} disabled={loading}>
-              Sign in
-            </Button>
+    <div className="flex min-h-screen bg-white dark:bg-slate-900">
+      {/* Left Panel - Hidden on small screens */}
+      <div className="hidden lg:flex w-1/2 flex-col items-center justify-center bg-primary-950 p-12 text-white">
+          <div className="flex flex-col items-center text-center">
+            <CubeIcon className="h-16 w-16 text-primary-500" />
+            <h1 className="mt-4 text-4xl font-bold">ZoguOne</h1>
+            <p className="mt-2 max-w-sm text-slate-300">
+              Your all-in-one solution for inventory, invoicing, and service management.
+            </p>
           </div>
-        </form>
+      </div>
+
+      {/* Right Panel */}
+      <div className="flex w-full lg:w-1/2 items-center justify-center p-8">
+        <div className="w-full max-w-sm">
+            {/* Mobile Header */}
+            <div className="lg:hidden flex flex-col items-center text-center mb-8">
+                <CubeIcon className="h-12 w-12 text-primary-600 dark:text-primary-500" />
+                <h1 className="mt-2 text-3xl font-bold text-slate-800 dark:text-white">ZoguOne</h1>
+            </div>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            Welcome back to ZoguOne
+          </h2>
+        
+          <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+            <div>
+                 <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
+                <Input
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mt-1 bg-slate-50 dark:bg-slate-700"
+                    wrapperClassName="w-full"
+                />
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
+                <div className="text-sm">
+                  <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
+                    {t('forgotPassword')}
+                  </a>
+                </div>
+              </div>
+              <Input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 bg-slate-50 dark:bg-slate-700"
+                wrapperClassName="w-full"
+              />
+            </div>
+
+            {error && <p className="text-sm text-center text-red-500">{error}</p>}
+
+            <div>
+              <Button type="submit" className="w-full" isLoading={loading} disabled={loading}>
+                Login
+              </Button>
+            </div>
+          </form>
+
+          <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
+            Don't have an account?{' '}
+            <Link to="#" className="font-medium text-primary-600 hover:text-primary-500">
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
