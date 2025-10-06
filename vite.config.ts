@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      // Fix: __dirname is not available in ES modules. Use process.cwd() to get the project root.
+      '@': path.resolve(process.cwd(), './src'),
     },
   },
 })

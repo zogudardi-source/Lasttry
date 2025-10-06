@@ -1,4 +1,3 @@
-// Fix: Add Vite client types to resolve import.meta.env error.
 /// <reference types="vite/client" />
 
 import { GoogleGenAI } from "@google/genai";
